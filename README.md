@@ -92,6 +92,48 @@ This is confirmed in the aggregation results, where the difference between the b
 From the aggregated statistics, fairness is computed using the difference in prediction rates across sensitive groups:
 DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 
+## Results
+
+### Aggregation Correctness (Round 2)
+
+| Dimension | Baseline | Secure   | Difference |
+| --------- | -------- | -------- | ---------- |
+| 0         | 0.553152 | 0.553151 | 1.19e-06   |
+| 1         | 0.425367 | 0.425366 | 9.23e-07   |
+| 2         | 0.046829 | 0.046828 | 1.40e-06   |
+| 3         | 0.174615 | 0.174613 | 1.64e-06   |
+| 4         | 0.467645 | 0.467644 | 1.37e-06   |
+| 5         | 0.132336 | 0.132335 | 1.22e-06   |
+
+**Max Difference:** `1.63e-06`
+
+### Aggregation Correctness (Round 1)
+
+| Dimension | Baseline | Secure   | Difference |
+| --------- | -------- | -------- | ---------- |
+| 0         | 0.524712 | 0.524711 | 1.31e-06   |
+| 1         | 0.411902 | 0.411901 | 1.40e-06   |
+| 2         | 0.075300 | 0.075299 | 9.46e-07   |
+| 3         | 0.188110 | 0.188108 | 1.90e-06   |
+| 4         | 0.449003 | 0.449002 | 1.40e-06   |
+| 5         | 0.151009 | 0.151007 | 1.88e-06   |
+
+**Max Difference:** `1.90e-06`
+
+### Final Performance
+
+| Model    | Accuracy | Fairness | HM     |
+| -------- | -------- | -------- | ------ |
+| FedRenyi | 0.8388   | 0.7622   | 0.7987 |
+
+
+### Summary
+
+* Secure aggregation matches the baseline with differences on the order of `1e-06`
+* These small differences are due to floating-point precision
+* This confirms that masking cancels out correctly and aggregation remains accurate
+* The system preserves both correctness and privacy while enabling fairness evaluation
+
 
 
 ## Note
