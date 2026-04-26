@@ -198,7 +198,37 @@ P(y_hat = 1 | s = 0) = j_c1_p0 / (j_c1_p0 + j_c0_p0)
 
 ---
 
+### What the Numbers Show
 
+Each client computes its local values and then adds a large mask before sending anything to the server. For example, a value like 183475 becomes:
+
+183475 + 4294660347 = 4294843822
+
+So what the server receives looks completely random and does not reveal the original data.
+
+The important part is how these masks are designed. Across clients, the masks cancel each other out. So when the server adds everything together:
+
+Sum(y_k) = Sum(x_k + mask_k) = Sum(x_k)
+
+This means the server still gets the correct global result, even though it never sees any individual values.
+
+You can see this in the results. For example:
+
+Baseline = 0.553152
+Secure   = 0.553151
+
+The difference is about 0.000001 (1e-6), which is extremely small and only due to floating point precision. In practice, the secure result is the same as the baseline.
+
+Fairness is then computed from these aggregated values by comparing prediction rates across groups:
+
+DEO = |P(y_hat = 1 | s = 0) - P(y_hat = 1 | s = 1)|
+FR  = 1 - DEO
+
+These probabilities are calculated using the aggregated counts (j values), so fairness can still be evaluated even though individual data is never revealed.
+
+Overall, the numbers show that secure aggregation hides client data while still producing correct and reliable results.
+
+----
 ## Note
 The original Fed-Rényi work reports different accuracy then what we see in our results with ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
 
