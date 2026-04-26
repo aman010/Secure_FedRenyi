@@ -137,95 +137,58 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 
 ### What the Numbers Show
 
-\section*{Secure Aggregation Formulation}
+## 🔐 Secure Aggregation
 
-Each client $k$ holds a local value $x_k$ and sends a masked value:
-\[
+Each client $k$ has a local value $x_k$ and sends a masked value:
+
+$$
 y_k = x_k + m_k + b_k
-\]
+$$
 
-where:
-\begin{itemize}
-\item $m_k$ is the pairwise mask
-\item $b_k$ is a private random mask
-\end{itemize}
+- $m_k$ = pairwise mask  
+- $b_k$ = private random mask  
 
-\subsection*{Pairwise Mask Construction}
+---
 
-Each pair of clients $(k, v)$ generates a shared value:
-\[
+### Pairwise Mask Construction
+
+For every pair of clients $(k, v)$:
+
+$$
 p_{k,v} = p_{v,k}
-\]
+$$
 
-The mask for client $k$ is:
-\[
+Each client constructs:
+
+$$
 m_k = \sum_{v > k} p_{k,v} - \sum_{v < k} p_{k,v}
-\]
+$$
 
-\subsection*{Mask Cancellation}
+---
 
-Summing over all clients:
-\[
+### Mask Cancellation
+
+Summing across all clients:
+
+$$
 \sum_k m_k = 0
-\]
+$$
 
 Thus:
-\[
+
+$$
 \sum_k y_k = \sum_k x_k + \sum_k b_k
-\]
+$$
 
 After removing private masks:
-\[
+
+$$
 \sum_k y_k - \sum_k b_k = \sum_k x_k
-\]
+$$
 
-\subsection*{Example}
+---
 
-Let:
-\[
-x_A = 10, \quad x_B = 20, \quad x_C = 30
-\]
-
-Shared values:
-\[
-p_{A,B} = 5, \quad p_{A,C} = 3, \quad p_{B,C} = 7
-\]
-
-Masks:
-\[
-m_A = 5 + 3 = 8
-\]
-\[
-m_B = -5 + 7 = 2
-\]
-\[
-m_C = -3 - 7 = -10
-\]
-
-Masked values:
-\[
-y_A = 10 + 8 = 18, \quad
-y_B = 20 + 2 = 22, \quad
-y_C = 30 - 10 = 20
-\]
-
-Aggregation:
-\[
-\sum y_k = 60 = \sum x_k
-\]
-
-\section*{Fairness Computation}
-
-We measure fairness using Difference in Equal Opportunity (DEO):
-
-\[
-DEO = \left| P(\hat{y} = 1 \mid s = 0) - P(\hat{y} = 1 \mid s = 1) \right|
-\]
-
-Fairness score:
-\[
-FR = 1 - DEO
-\]
+### Example
 
 ----
 ## Note
