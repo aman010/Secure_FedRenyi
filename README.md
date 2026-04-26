@@ -136,9 +136,6 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 ---
 
 ### What the Numbers Show
-
-## 🔐 Secure Aggregation
-
 Each client $k$ has a local value $x_k$ and sends a masked value:
 
 $$
@@ -189,7 +186,56 @@ $$
 ---
 
 ### Example
+x_A = 10
+x_B = 20
+x_C = 30
 
+
+Pairwise values:
+
+
+p_{A,B} = 5
+p_{A,C} = 3
+p_{B,C} = 7
+
+
+Masks:
+
+
+m_A = 5 + 3 = 8
+m_B = -5 + 7 = 2
+m_C = -3 - 7 = -10
+
+
+Masked values:
+
+
+y_A = 18
+y_B = 22
+y_C = 20
+
+
+Aggregation:
+
+
+18 + 22 + 20 = 60
+
+
+---
+
+## ⚖️ Fairness Metric
+
+We use **Difference in Equal Opportunity (DEO)**:
+
+$$
+DEO = \left| P(\hat{y} = 1 \mid s = 0) - P(\hat{y} = 1 \mid s = 1) \right|
+$$
+
+Fairness score:
+
+$$
+FR = 1 - DEO
+$$
 ----
 ## Note
 The original Fed-Rényi work reports different accuracy then what we see in our results with ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
