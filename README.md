@@ -134,6 +134,69 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 * This confirms that masking cancels out correctly and aggregation remains accurate
 * The system preserves both correctness and privacy while enabling fairness evaluation
 
+### What the Numbers Show (with Math)
+
+Each client sends a masked value:
+
+y_k = x_k + mask  (mod M)
+
+Example from the logs:
+
+* x_k = 183475
+* mask = 4294660347
+* y_k = 183475 + 4294660347 = 4294843822
+
+This makes the transmitted value look random.
+
+---
+
+### Why Aggregation Still Works
+
+At the server:
+
+Sum(y_k) = Sum(x_k + mask_k)
+= Sum(x_k) + Sum(mask_k)
+
+Masks are constructed in pairs so that:
+
+Sum(mask_k) = 0
+
+Therefore:
+
+Sum(y_k) = Sum(x_k)
+
+👉 The server recovers the exact global sum without seeing individual values.
+
+---
+
+### Numerical Verification
+
+From the results:
+
+Baseline = 0.553152
+Secure   = 0.553151
+
+Difference:
+
+|0.553152 - 0.553151| = 0.000001 ≈ 1e-06
+
+This is extremely small and comes from floating-point precision, not from the algorithm.
+
+---
+
+### Fairness Computation
+
+Fairness is computed as:
+
+DEO = |P(y_hat = 1 | s = 0) - P(y_hat = 1 | s = 1)|
+FR  = 1 - DEO
+
+Where probabilities are derived from aggregated counts:
+
+P(y_hat = 1 | s = 1) = j_c1_p1 / (j_c1_p1 + j_c0_p1)
+P(y_hat = 1 | s = 0) = j_c1_p0 / (j_c1_p0 + j_c0_p0)
+
+---
 
 
 ## Note
