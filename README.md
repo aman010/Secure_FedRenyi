@@ -91,10 +91,12 @@ This is confirmed in the aggregation results, where the difference between the b
 
 From the aggregated statistics, fairness is computed using the difference in prediction rates across sensitive groups:
 DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
-The final results show an accuracy of 0.8388 and fairness of 0.7622, with a harmonic mean of 0.7987, indicating a strong balance between performance and fairness. Overall, the system successfully ensures that individual client data remains hidden while still enabling accurate and fair global learning.
 
 
 
 ## Note
+The original Fed-Rényi work reports an accuracy of around 0.67, whereas our implementation achieves approximately 0.83 on the ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
 
-Dataset is not included due to size. Please place it manually in the `dataset/` folder.
+It is important to note that our work does not aim to improve predictive performance over the original method. Instead, the focus is on integrating secure aggregation into the Fed-Rényi framework and verifying that it preserves correctness, privacy, and fairness behavior.
+
+The key contribution of this work is therefore the secure handling of client updates and the demonstration that fairness and utility metrics remain consistent under secure aggregation and differential privacy.
