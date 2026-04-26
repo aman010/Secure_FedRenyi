@@ -10,7 +10,7 @@ subgraph Clients ["Local Clients (1...K)"]
 end
 
 %% ================= SECURE LAYER =================
-subgraph SecureFL ["Secure Aggregation Layer Optional"]
+subgraph SecureFL ["Secure FL Layer"]
     S1[Diffie Hellman Key Generation]
     S2[Shared Secret to PRG Masks]
     S3[Mask Local Vectors]
@@ -19,7 +19,7 @@ end
 %% ================= SERVER =================
 subgraph Server ["Central Server"]
     SV1[Aggregate Updates]
-    SV2[Optional DP Noise Injection]
+    SV2[DP Noise Injection]
     SV3[Compute Q_hat Matrix]
     SV4[SVD Update Fairness Vector v]
 end
