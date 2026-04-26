@@ -84,165 +84,18 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 * Secure aggregation hides individual updates
 * Fairness without compromised is analyzed across clients
 
-## Results and Analysis
+## Functioning And Methodology
 
-This section presents the secure aggregation process, verification of correctness, and final performance metrics.
+## 📊 Results and Analysis
 
----
+Each client computes a local fairness vector containing statistics such as ( j_{c,p} ) and ( u_c ). Before sending this to the server, the vector is masked using values generated from shared cryptographic keys. For example, a value like ( x_k = 183475 ) is transformed into ( y_k = 183475 + 4294660347 = 4294843822 ), making it appear random to the server. Importantly, these masks are constructed so that they cancel out across clients. As a result, when the server aggregates all received values, the masks sum to zero and the true global sum is recovered.
 
-### Secure Aggregation: Client-Level Logs
+This is confirmed in the aggregation results, where the difference between the baseline (no masking) and secure aggregation is on the order of ( 10^{-6} ), which is negligible and only due to floating-point precision. This demonstrates that secure aggregation preserves correctness while ensuring privacy.
 
-Each client computes a local fairness vector:
+From the aggregated statistics, fairness is computed using the difference in prediction rates across sensitive groups:
+( DEO = |P(\hat{y}=1|s=0) - P(\hat{y}=1|s=1)| ), and ( FR = 1 - DEO ).
+The final results show an accuracy of 0.8388 and fairness of 0.7622, with a harmonic mean of 0.7987, indicating a strong balance between performance and fairness. Overall, the system successfully ensures that individual client data remains hidden while still enabling accurate and fair global learning.
 
-* `x_k` → true local statistics
-* `mask` → cryptographic noise (from key sharing)
-* `y_k = x_k + mask (mod M)` → transmitted value
-
-Example:
-
-```
-Parameter    x_k       mask        y_k
-j_c0_p0   183475 4294660347 4294843822
-...
-```
-
-#### 🧠 Interpretation
-
-* `x_k` = local fairness statistics
-* `mask` = generated using shared secrets
-* `y_k` = masked value sent to server
-
-Server never sees `x_k` directly.
-
----
-
-### Key Sharing Mechanism (Secure Aggregation)
-
-Secure aggregation is implemented using a protocol similar to
-Diffie–Hellman key exchange.
-
-#### Step-by-step:
-
-1. Each client generates:
-
-   * private key: `sk`
-   * public key: `pk = g^sk mod p`
-
-2. Clients exchange public keys.
-
-3. For each pair (k, v):
-
-   ```
-   shared_secret = pk_v ^ sk_k mod p
-   ```
-
-4. Shared secret → hashed → seed:
-
-   ```
-   seed = hash(shared_secret)
-   ```
-
-5. Seed → PRG → mask vector:
-
-   ```
-   p_kv = PRG(seed)
-   ```
-
----
-
-### Mask Cancellation Property
-
-Each pair contributes:
-
-* Client k adds `+p_kv`
-* Client v adds `-p_kv`
-
-When aggregated:
-
-```
-Σ masks = 0
-```
-
-So:
-
-```
-Σ y_k = Σ x_k
-```
-
-✔ Correct aggregation
-✔ No individual leakage
-
----
-
-### Aggregation Verification
-
-We compare:
-
-* **Baseline (no masking)**
-* **Secure aggregation**
-
-```
-Dimension  Baseline   Secure   Difference
-0          0.553152   0.553151   1e-6
-```
-
-#### Key Observation
-
-* Differences ≈ `10^-6`
-* Due to floating-point precision only
-
-Secure aggregation is **numerically correct**
-
----
-
-### Multi-Round Consistency
-
-Repeated across rounds:
-
-```
-Max diff ≈ 1.6e-6
-```
-
-👉 Stability confirmed across training iterations
-
----
-
-### 📊 Fairness Computation
-
-From aggregated vector:
-
-```
-X = [j_c0_p0, j_c0_p1, j_c1_p0, j_c1_p1, u_c0, u_c1]
-```
-
-We compute:
-
-* P(ŷ=1 | s=1)
-* P(ŷ=1 | s=0)
-
-Fairness (Equal Opportunity):
-
-```
-DEO = |P(ŷ=1|s=0) - P(ŷ=1|s=1)|
-FR = 1 - DEO
-```
-
----
-
-### 📈 Final Results
-
-```
-Algorithm    Accuracy   Fairness   HM
-FedRenyi     0.8388     0.7622     0.7987
-```
-
-#### Interpretation:
-
-* **Accuracy (0.8388)** → strong predictive performance
-* **Fairness (0.7622)** → balanced outcomes across groups
-* **HM (0.7987)** → harmonic tradeoff between both
-
----
 
 ### 🎯 Key Insights
 
