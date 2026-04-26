@@ -10,12 +10,6 @@ graph LR
 ```
 
 ## Full Pipeline
-
-<details>
-<summary><b>Click to expand full system flow</b></summary>
-
-<br>
-
 ```mermaid
 graph TD
 
@@ -75,8 +69,6 @@ style SecureFL fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 style Server fill:#f5f5f5,stroke:#424242,stroke-width:2px
 style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 ```
-
-</details>
 
 ## Key Idea
 
