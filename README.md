@@ -78,15 +78,11 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
 </details>
 
----
-
 ## Key Idea
 
 * Clients train locally without sharing raw data
 * Secure aggregation hides individual updates
 * Fairness without compromised is analyzed across clients
-
----
 
 ## Note
 
