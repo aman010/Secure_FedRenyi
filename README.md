@@ -85,9 +85,6 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 * Fairness without compromised is analyzed across clients
 
 ## Functioning And Methodology
-
-## 📊 Results and Analysis
-
 Each client computes a local fairness vector containing statistics such as ( j_{c,p} ) and ( u_c ). Before sending this to the server, the vector is masked using values generated from shared cryptographic keys. For example, a value like ( x_k = 183475 ) is transformed into ( y_k = 183475 + 4294660347 = 4294843822 ), making it appear random to the server. Importantly, these masks are constructed so that they cancel out across clients. As a result, when the server aggregates all received values, the masks sum to zero and the true global sum is recovered.
 
 This is confirmed in the aggregation results, where the difference between the baseline (no masking) and secure aggregation is on the order of ( 10^{-6} ), which is negligible and only due to floating-point precision. This demonstrates that secure aggregation preserves correctness while ensuring privacy.
@@ -96,19 +93,6 @@ From the aggregated statistics, fairness is computed using the difference in pre
 ( DEO = |P(\hat{y}=1|s=0) - P(\hat{y}=1|s=1)| ), and ( FR = 1 - DEO ).
 The final results show an accuracy of 0.8388 and fairness of 0.7622, with a harmonic mean of 0.7987, indicating a strong balance between performance and fairness. Overall, the system successfully ensures that individual client data remains hidden while still enabling accurate and fair global learning.
 
-
-### 🎯 Key Insights
-
-* Secure aggregation preserves correctness while ensuring privacy
-* Individual client contributions remain hidden
-* Fairness metrics can still be computed accurately
-* Enables joint analysis of:
-
-  * security (masking)
-  * privacy (DP)
-  * fairness (Rényi framework)
-
----
 
 
 ## Note
