@@ -95,7 +95,7 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 
 
 ## Note
-The original Fed-Rényi work reports an accuracy of around 0.67, whereas our implementation achieves approximately 0.83 on the ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
+The original Fed-Rényi work reports different accuracy then what we see in our results with ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
 
 It is important to note that our work does not aim to improve predictive performance over the original method. Instead, the focus is on integrating secure aggregation into the Fed-Rényi framework and verifying that it preserves correctness, privacy, and fairness behavior.
 
