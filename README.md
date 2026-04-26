@@ -1,6 +1,6 @@
 # Federated Learning with Rényi DP and Secure Aggregation
 
-## 📊 System Overview
+## System Overview
 
 ```mermaid
 graph LR
@@ -11,7 +11,7 @@ This project studies privacy–fairness tradeoffs in federated learning using di
 
 ---
 
-## 🔍 Full Pipeline
+## Full Pipeline
 
 <details>
 <summary><b>Click to expand full system flow</b></summary>
@@ -82,7 +82,7 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
 ---
 
-## 💡 Key Idea
+## Key Idea
 
 * Clients train locally without sharing raw data
 * Secure aggregation hides individual updates
@@ -91,6 +91,6 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
 ---
 
-## ⚠️ Note
+## Note
 
 Dataset is not included due to size. Please place it manually in the `dataset/` folder.
