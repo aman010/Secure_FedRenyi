@@ -1,14 +1,13 @@
 # Federated Learning with Rényi DP and Secure Aggregation
+```
+This Work extends federated learning with fairness-aware optimization by integrating secure FL into the Rényi-based framework.
 
-## System Overview
+Clients train models locally and compute fairness-related statistics. These updates are protected through secure FL layer using key-sharing mechanisms, ensuring that individual client contributions remain hidden. The server then aggregates the masked updates, and updates a global fairness vector.
 
+This design enables a unified analysis of privacy, security, and fairness tradeoffs in federated learning.
 ```mermaid
 graph LR
     Clients --> SecureFL --> Server --> Analysis
-```
-
-This project studies privacy–fairness tradeoffs in federated learning using differential privacy and secure aggregation.
-
 ---
 
 ## Full Pipeline
