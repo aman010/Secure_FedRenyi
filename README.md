@@ -7,6 +7,7 @@ This design enables a unified analysis of privacy, security, and fairness tradeo
 ```mermaid
 graph LR
     Clients --> SecureFL --> Server --> Analysis
+```
 ---
 
 ## Full Pipeline
