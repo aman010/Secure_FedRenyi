@@ -90,7 +90,7 @@ Each client computes a local fairness vector containing statistics such as ( j_{
 This is confirmed in the aggregation results, where the difference between the baseline (no masking) and secure aggregation is on the order of ( 10^{-6} ), which is negligible and only due to floating-point precision. This demonstrates that secure aggregation preserves correctness while ensuring privacy.
 
 From the aggregated statistics, fairness is computed using the difference in prediction rates across sensitive groups:
-( DEO = |P(\hat{y}=1|s=0) - P(\hat{y}=1|s=1)| ), and ( FR = 1 - DEO ).
+DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 The final results show an accuracy of 0.8388 and fairness of 0.7622, with a harmonic mean of 0.7987, indicating a strong balance between performance and fairness. Overall, the system successfully ensures that individual client data remains hidden while still enabling accurate and fair global learning.
 
 
