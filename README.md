@@ -3,16 +3,16 @@ graph TD
 
 %% ================= CLIENT SIDE =================
 subgraph Clients ["Local Clients (1...K)"]
-    C1[Download Global Model θ & Fairness Vector v]
-    C2[Local Training<br/>Loss + λG]
-    C3[Compute Local Stats<br/>j_bar, u_bar]
+    C1[Download Global Model and v]
+    C2[Local Training Loss + lambda G]
+    C3[Compute Local Stats j_bar u_bar]
     C4[Build Fairness Vector x_k]
 end
 
 %% ================= SECURE LAYER =================
-subgraph SecureFL ["Secure Aggregation Layer (Optional)"]
-    S1[Diffie-Hellman Key Generation]
-    S2[Shared Secret → PRG Masks]
+subgraph SecureFL ["Secure Aggregation Layer Optional"]
+    S1[Diffie Hellman Key Generation]
+    S2[Shared Secret to PRG Masks]
     S3[Mask Local Vectors]
 end
 
@@ -21,25 +21,25 @@ subgraph Server ["Central Server"]
     SV1[Aggregate Updates]
     SV2[Optional DP Noise Injection]
     SV3[Compute Q_hat Matrix]
-    SV4[SVD → Update Fairness Vector v]
+    SV4[SVD Update Fairness Vector v]
 end
 
 %% ================= ANALYSIS =================
-subgraph Analysis ["DP & Fairness Analysis (Your Contribution)"]
-    A1[Compute Fairness Metric (FR)]
+subgraph Analysis ["DP and Fairness Analysis"]
+    A1[Compute Fairness Metric]
     A2[Compare Baseline vs DP]
-    A3[Analyze Privacy–Fairness Tradeoff]
+    A3[Analyze Tradeoff]
 end
 
 %% ================= FLOW =================
 C1 --> C2 --> C3 --> C4
 
-C4 -->|Raw Vector| SV1
-C4 -->|Masked Vector| S1
+C4 -->|Raw| SV1
+C4 -->|Masked| S1
 S1 --> S2 --> S3 --> SV1
 
 SV1 --> SV2 --> SV3 --> SV4
-SV4 -->|Feedback Loop| C1
+SV4 --> C1
 
 SV2 --> A1 --> A2 --> A3
 
