@@ -137,33 +137,95 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 
 ### What the Numbers Show
 
-Each client computes its local values and then adds a large mask before sending anything to the server. For example, a value like 183475 becomes:
+\section*{Secure Aggregation Formulation}
 
-183475 + 4294660347 = 4294843822
+Each client $k$ holds a local value $x_k$ and sends a masked value:
+\[
+y_k = x_k + m_k + b_k
+\]
 
-So what the server receives looks completely random and does not reveal the original data.
+where:
+\begin{itemize}
+\item $m_k$ is the pairwise mask
+\item $b_k$ is a private random mask
+\end{itemize}
 
-The important part is how these masks are designed. Across clients, the masks cancel each other out. So when the server adds everything together:
+\subsection*{Pairwise Mask Construction}
 
-Sum(y_k) = Sum(x_k + mask_k) = Sum(x_k)
+Each pair of clients $(k, v)$ generates a shared value:
+\[
+p_{k,v} = p_{v,k}
+\]
 
-This means the server still gets the correct global result, even though it never sees any individual values.
+The mask for client $k$ is:
+\[
+m_k = \sum_{v > k} p_{k,v} - \sum_{v < k} p_{k,v}
+\]
 
-You can see this in the results. For example:
+\subsection*{Mask Cancellation}
 
-Baseline = 0.553152
-Secure   = 0.553151
+Summing over all clients:
+\[
+\sum_k m_k = 0
+\]
 
-The difference is about 0.000001 (1e-6), which is extremely small and only due to floating point precision. In practice, the secure result is the same as the baseline.
+Thus:
+\[
+\sum_k y_k = \sum_k x_k + \sum_k b_k
+\]
 
-Fairness is then computed from these aggregated values by comparing prediction rates across groups:
+After removing private masks:
+\[
+\sum_k y_k - \sum_k b_k = \sum_k x_k
+\]
 
-DEO = |P(y_hat = 1 | s = 0) - P(y_hat = 1 | s = 1)|
-FR  = 1 - DEO
+\subsection*{Example}
 
-These probabilities are calculated using the aggregated counts (j values), so fairness can still be evaluated even though individual data is never revealed.
+Let:
+\[
+x_A = 10, \quad x_B = 20, \quad x_C = 30
+\]
 
-Overall, the numbers show that secure aggregation hides client data while still producing correct and reliable results.
+Shared values:
+\[
+p_{A,B} = 5, \quad p_{A,C} = 3, \quad p_{B,C} = 7
+\]
+
+Masks:
+\[
+m_A = 5 + 3 = 8
+\]
+\[
+m_B = -5 + 7 = 2
+\]
+\[
+m_C = -3 - 7 = -10
+\]
+
+Masked values:
+\[
+y_A = 10 + 8 = 18, \quad
+y_B = 20 + 2 = 22, \quad
+y_C = 30 - 10 = 20
+\]
+
+Aggregation:
+\[
+\sum y_k = 60 = \sum x_k
+\]
+
+\section*{Fairness Computation}
+
+We measure fairness using Difference in Equal Opportunity (DEO):
+
+\[
+DEO = \left| P(\hat{y} = 1 \mid s = 0) - P(\hat{y} = 1 \mid s = 1) \right|
+\]
+
+Fairness score:
+\[
+FR = 1 - DEO
+\]
 
 ----
 ## Note
