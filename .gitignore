@@ -1,0 +1,11 @@
+**pycache**/
+*.pyc
+*.log
+log_path/
+.env
+.ipynb_checkpoints/
+dataset/
+*.pickle
+__pycache__/
+*.pyc
+log_path/
