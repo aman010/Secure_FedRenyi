@@ -1,5 +1,4 @@
 # Federated Learning with Rényi DP and Secure Aggregation
-```
 This Work extends federated learning with fairness-aware optimization by integrating secure FL into the Rényi-based framework.
 
 Clients train models locally and compute fairness-related statistics. These updates are protected through secure FL layer using key-sharing mechanisms, ensuring that individual client contributions remain hidden. The server then aggregates the masked updates, and updates a global fairness vector.
