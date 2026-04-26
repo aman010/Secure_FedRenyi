@@ -8,7 +8,6 @@ This design enables a unified analysis of privacy, security, and fairness tradeo
 graph LR
     Clients --> SecureFL --> Server --> Analysis
 ```
----
 
 ## Full Pipeline
 
@@ -85,8 +84,7 @@ style Analysis fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 
 * Clients train locally without sharing raw data
 * Secure aggregation hides individual updates
-* Differential privacy adds noise for protection
-* Fairness is analyzed across clients
+* Fairness without compromised is analyzed across clients
 
 ---
 
