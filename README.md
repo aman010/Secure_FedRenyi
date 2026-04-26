@@ -135,8 +135,8 @@ DEO = |P(ŷ = 1 | s = 0) - P(ŷ = 1 | s = 1)| and FR = 1 − DEO.
 * The system preserves both correctness and privacy while enabling fairness evaluation
 ----
 ## Note
-* The original Fed-Rényi work reports different accuracy then what we see in our results with ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
-It is important to note that our work does not aim to improve predictive performance over the original method. Instead, the focus is on integrating secure aggregation into the Fed-Rényi framework and verifying that it preserves correctness, privacy, and fairness behavior.
-The key contribution of this work is therefore the secure handling of client updates and the demonstration that fairness and utility metrics remain consistent under secure aggregation and differential privacy.
+The original Fed-Rényi work reports different accuracy then what we see in our results with ADULT dataset. This difference is primarily due to dataset characteristics, as ADULT is known to be imbalanced, which can inflate accuracy and bias it toward majority classes.
 
-* In our implementation, each client generates a private mask using a locally sampled seed (or private key), which is never shared with the server or other clients. This ensures that individual client values remain hidden during transmission. For clarity and verification, we explicitly compute and remove the sum of private masks at the server in our simulation. However, this step is only used to demonstrate that the masking scheme correctly recovers the global aggregate. In a fully secure aggregation protocol, the server would not have access to these masks, and their removal would instead be performed through distributed cryptographic techniques such as secret sharing. Therefore, our implementation preserves the correctness of secure aggregation while simplifying the unmasking step for experimental purposes.
+It is important to note that our work does not aim to improve predictive performance over the original method. Instead, the focus is on integrating secure aggregation into the Fed-Rényi framework and verifying that it preserves correctness, privacy, and fairness behavior.
+
+The key contribution of this work is therefore the secure handling of client updates and the demonstration that fairness and utility metrics remain consistent under secure aggregation and differential privacy.
